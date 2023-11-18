@@ -48,75 +48,82 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Пол<span class="required-field">* </span>
-          <span class="validation-text" v-if="this.v$.formData.firstName.$error">Выберите пол</span></label>
-        <div class="male-block">
-          <div class="male-content">
-            <label>
-              <input v-model="formData.gender" type="radio" value="male" /> Мужской
-            </label>
+      <div class="grid">
+        <div class="form-group">
+          <label>Пол<span class="required-field">* </span>
+            <span class="validation-text" v-if="this.v$.formData.firstName.$error">Выберите пол</span></label>
+          <div class="gender-block">
+            <div class="gender-content">
+              <label class="gender-text" for="male">Мужской</label>
+              <input id="male" v-model="formData.gender" type="radio" value="male" />
+            </div>
+            <div class="gender-content">
+              <label class="gender-text" for="female">Женский</label>
+              <input id="female" v-model="formData.gender" type="radio" value="female" />
+            </div>
           </div>
-          <div class="male-content">
-            <label>
-              <input v-model="formData.gender" type="radio" value="female" /> Женский
-            </label>
-          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Группа клиентов<span class="required-field">* </span>
+            <span class="validation-text" v-if="this.v$.formData.selectedGroups?.$error">Выберите хотя бы одну группу</span>
+          </label>
+          <select multiple v-model="formData.selectedGroups">
+            <option value="VIP">VIP</option>
+            <option value="Проблемные">Проблемные</option>
+            <option value="ОМС">ОМС</option>
+          </select>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Группа клиентов<span class="required-field">* </span>
-          <span class="validation-text" v-if="this.v$.formData.selectedGroups?.$error">Выберите хотя бы одну группу</span>
-        </label>
-        <select multiple v-model="formData.selectedGroups">
-          <option value="VIP">VIP</option>
-          <option value="Проблемные">Проблемные</option>
-          <option value="ОМС">ОМС</option>
-        </select>
+        <div class="doNotSendSMS">
+          <label for="doNotSendSMS" class="doNotSendSMS-text">Не отправлять СМС</label>
+          <input id="doNotSendSMS" class="doNotSendSMS-input" v-model="formData.doNotSendSMS" type="checkbox" />
+        </div>
+      </div>
+      <hr>
+      <h3>Адрес</h3>
+      <div class="grid">
+        <div class="form-group">
+          <label for="index">Индекс</label>
+          <input v-model.trim="formData.address.index" type="text" id="index" />
+        </div>
+
+        <div class="form-group">
+          <label for="country">Страна</label>
+          <input v-model.trim="formData.address.country" type="text" id="country" />
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>
-          <input v-model="formData.doNotSendSMS" type="checkbox" /> Не отправлять СМС
-        </label>
+      <div class="grid">
+        <div class="form-group">
+          <label for="region">Область</label>
+          <input v-model.trim="formData.address.region" type="text" id="region" />
+        </div>
+
+        <div class="form-group">
+          <label for="city">Город<span class="required-field">* </span>
+            <span class="validation-text" v-if="this.v$.formData.address.city.$error">Город обязателен</span>
+          </label>
+          <input v-model.trim="formData.address.city" type="text" id="city" />
+        </div>
       </div>
 
-      <div class="form-group">
-        <h3>Адрес</h3>
-        <label for="index">Индекс</label>
-        <input v-model.trim="formData.address.index" type="text" id="index" />
-      </div>
+      <div class="grid">
+        <div class="form-group">
+          <label for="street">Улица</label>
+          <input v-model.trim="formData.address.street" type="text" id="street" />
+        </div>
 
-      <div class="form-group">
-        <label for="country">Страна</label>
-        <input v-model.trim="formData.address.country" type="text" id="country" />
+        <div class="form-group">
+          <label for="house">Дом</label>
+          <input v-model.trim="formData.address.house" type="text" id="house" />
+        </div>
       </div>
-
+      <hr>
+      <h3>Паспорт</h3>
       <div class="form-group">
-        <label for="region">Область</label>
-        <input v-model.trim="formData.address.region" type="text" id="region" />
-      </div>
-
-      <div class="form-group">
-        <label for="city">Город<span class="required-field">* </span>
-          <span class="validation-text" v-if="this.v$.formData.address.city.$error">Город обязателен</span>
-        </label>
-        <input v-model.trim="formData.address.city" type="text" id="city" />
-      </div>
-
-      <div class="form-group">
-        <label for="street">Улица</label>
-        <input v-model.trim="formData.address.street" type="text" id="street" />
-      </div>
-
-      <div class="form-group">
-        <label for="house">Дом</label>
-        <input v-model.trim="formData.address.house" type="text" id="house" />
-      </div>
-
-      <div class="form-group">
-        <h3>Паспорт</h3>
         <label for="documentType">Тип документа<span class="required-field">* </span>
           <span class="validation-text" v-if="this.v$.formData.passport.documentType.$error">Выберите тип документа</span>
         </label>
@@ -127,26 +134,30 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="series">Серия</label>
-        <input v-model.trim="formData.passport.series" type="text" id="series" />
+      <div class="grid">
+        <div class="form-group">
+          <label for="series">Серия</label>
+          <input v-model.trim="formData.passport.series" type="text" id="series" />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Номер</label>
+          <input v-model.trim="formData.passport.number" type="text" id="number" />
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="number">Номер</label>
-        <input v-model.trim="formData.passport.number" type="text" id="number" />
-      </div>
+      <div class="grid">
+        <div class="form-group">
+          <label for="issuedBy">Кем выдан</label>
+          <input v-model.trim="formData.passport.issuedBy" type="text" id="issuedBy" />
+        </div>
 
-      <div class="form-group">
-        <label for="issuedBy">Кем выдан</label>
-        <input v-model.trim="formData.passport.issuedBy" type="text" id="issuedBy" />
-      </div>
-
-      <div class="form-group">
-        <label for="issueDate">Дата выдачи<span class="required-field">* </span>
-          <span class="validation-text" v-if="this.v$.formData.passport.issueDate.$error">Дата выдачи обязательна</span>
-        </label>
-        <input v-model="formData.passport.issueDate" type="date" id="issueDate" />
+        <div class="form-group">
+          <label for="issueDate">Дата выдачи<span class="required-field">* </span>
+            <span class="validation-text" v-if="this.v$.formData.passport.issueDate.$error">Дата выдачи обязательна</span>
+          </label>
+          <input v-model="formData.passport.issueDate" type="date" id="issueDate" />
+        </div>
       </div>
 
 
@@ -237,14 +248,26 @@ export default {
         this.formSubmittedNone = false;
         this.formSubmitted = true;
       }
-      console.log(this.formData)
-      console.log(this.formData.selectedGroups)
     },
   },
 }
 </script>
 
 <style scoped>
+.doNotSendSMS {
+  display: flex;
+  justify-content: center;
+  .doNotSendSMS-text{
+    margin: 0 15px 0 0;
+  }
+  .doNotSendSMS-input {
+    width: 17px;
+    height: 17px;
+    display: block;
+
+    margin: 0;
+  }
+}
 .grid {
   width: 100%;
   display: flex;
@@ -262,12 +285,20 @@ export default {
     }
   }
 }
-.male-block {
+.gender-block {
   display: flex;
   justify-content: flex-start;
-  .male-content {
-    display: inline-block;
-    margin-right: 10px; /* Примерный отступ между элементами, по вашему усмотрению */
+  .gender-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-right: 10px;
+    .gender-text {
+      margin: 0 5px 0 0;
+    }
+    #female, #male {
+      margin: 0;
+    }
   }
 }
 .client-form {
